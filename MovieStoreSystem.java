@@ -62,13 +62,21 @@ public class MovieStoreSystemRefactoredP3 {
         }
 
         System.out.println("The movie titles in the movie store before sorting are: ");
-        printMovies(movieTitles);
+        // R5: Use parametrized print method for movieTitles
+        // printMovies(movieTitles);
+
+        printItems(movieTitles);
 
         // R4: Use specific sort method for Movie objects
-        sortMovies(movieTitles);
+        // sortMovies(movieTitles);
+
+        // R5: Use Parametrized sort for movie Objects
+        sortItems(movieTitles);
 
         System.out.println("The movie titles in the movie store after sorting are: ");
-        printMovies(movieTitles);
+        // R5 : parametrized print
+        // printMovies(movieTitles);
+        printItems(movieTitles);
 
         // --- SECTION 2: MEMBERS ---
         // R4: Using ArrayList of Member objects instead of Strings
@@ -85,19 +93,26 @@ public class MovieStoreSystemRefactoredP3 {
         }
 
         System.out.println("The members in the movie store before sorting are: ");
-        printMembers(memberNames);
+        // R5
+        // printMembers(memberNames);
+        printItems(memberNames);
 
         // R4: Use specific sort method for Member objects
-        sortMembers(memberNames);
+        // sortMembers(memberNames);
+
+        // R5: Use parametrized sort method for member objects
+        sortItems(memberNames);
 
         System.out.println("The members in the movie store after sorting are: ");
-        printMembers(memberNames);
+        // printMembers(memberNames);
+        // R5
+        printItems(memberNames);
 
         // --- SECTION 3: SEARCHING ---
         System.out.println("\nEnter a movie title to search for:");
         String movieToSearch = input.next();
-        // R4: Use specific search method for Movie objects
-        if (searchMovie(movieTitles, movieToSearch)) {
+        // R5: Use parametrized search method for Movie objects
+        if (searchItems(movieTitles, movieToSearch)) {
             System.out.println("The movie title is found");
         } else {
             System.out.println("The movie title is not found");
@@ -105,8 +120,8 @@ public class MovieStoreSystemRefactoredP3 {
 
         System.out.println("\nEnter a member name to search for:");
         String memberToSearch = input.next();
-        // R4: Use specific search method for Member objects
-        if (searchMember(memberNames, memberToSearch)) {
+        // R5: Use parametrized search method for Member objects
+        if (searchItems(memberNames, memberToSearch)) {
             System.out.println("The member is found");
         } else {
             System.out.println("The member is not found");
