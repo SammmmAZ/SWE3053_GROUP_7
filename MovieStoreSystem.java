@@ -2,97 +2,112 @@ package MovieStoreSystem;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MovieStoreSystemRefactoredP2 {
+// R4: Class for movie titles with title stored as an instance variable
+class Movie {
+    private String title;
+
+    public Movie(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+}
+
+// R4: Class for members with name stored as an instance variable
+class Member {
+    private String name;
+
+    public Member(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+public class MovieStoreSystemRefactoredP3 {
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
 
-        // This code is to add movie titles to the movie store and sort them
-        ArrayList<String> movieTitles = new ArrayList<String>();
-        String newMovieTitle;
-
+        // --- SECTION 1: MOVIES ---
+        // R4: Using ArrayList of Movie objects instead of Strings
+        ArrayList<Movie> movieTitles = new ArrayList<Movie>();
         System.out.println("Create the movies list by entering the movie titles one by one");
         System.out.println("Enter a movie title to be added to the movie store");
-        Scanner input = new Scanner(System.in);
-        newMovieTitle = input.next();
-        while (!(newMovieTitle.equals("end"))) {
-            movieTitles.add(newMovieTitle);
+        
+        String newMovieTitleStr = input.next();
+        while (!(newMovieTitleStr.equals("end"))) {
+            // R4: Creating Movie objects to add to the list
+            movieTitles.add(new Movie(newMovieTitleStr));
             System.out.print("Enter a movie title to be added to the movie store");
-            newMovieTitle = input.next();
+            newMovieTitleStr = input.next();
         }
 
         System.out.println("The movie titles in the movie store before sorting are: ");
-        for (String title : movieTitles) {
-            System.out.println(title);
-        }
+        printMovies(movieTitles);
 
-        // R3: Using Extracted Method for sorting movies
-        sortElements(movieTitles);
+        // R4: Use specific sort method for Movie objects
+        sortMovies(movieTitles);
 
         System.out.println("The movie titles in the movie store after sorting are: ");
-        for (String title : movieTitles) {
-            System.out.println(title);
-        }
+        printMovies(movieTitles);
 
-        // This code is to add members to the movie store and sort them
-        ArrayList<String> memberNames = new ArrayList<String>();
-        String newMemberName;
-
-        System.out.println("Create the members list by entering the member names one by one");
+        // --- SECTION 2: MEMBERS ---
+        // R4: Using ArrayList of Member objects instead of Strings
+        ArrayList<Member> memberNames = new ArrayList<Member>();
+        System.out.println("\nCreate the members list by entering the member names one by one");
         System.out.println("Enter a member name to be added to the movie store system");
-        newMemberName = input.next();
-        while (!(newMemberName.equals("end"))) {
-            memberNames.add(newMemberName);
+        
+        String newMemberNameStr = input.next();
+        while (!(newMemberNameStr.equals("end"))) {
+            // R4: Creating Member objects to add to the list
+            memberNames.add(new Member(newMemberNameStr));
             System.out.print("Enter a member name to be added to the movie store");
-            newMemberName = input.next();
+            newMemberNameStr = input.next();
         }
 
         System.out.println("The members in the movie store before sorting are: ");
-        for (String name : memberNames) {
-            System.out.println(name);
-        }
+        printMembers(memberNames);
 
-        // R3: Using Extracted Method for sorting members
-        sortElements(memberNames);
+        // R4: Use specific sort method for Member objects
+        sortMembers(memberNames);
 
         System.out.println("The members in the movie store after sorting are: ");
-        for (String name : memberNames) {
-            System.out.println(name);
+        printMembers(memberNames);
+
+        // --- SECTION 3: SEARCHING ---
+        System.out.println("\nEnter a movie title to search for:");
+        String movieToSearch = input.next();
+        // R4: Use specific search method for Movie objects
+        if (searchMovie(movieTitles, movieToSearch)) {
+            System.out.println("The movie title is found");
+        } else {
+            System.out.println("The movie title is not found");
         }
 
-        // This code is to search for a specific movie title
-        System.out.println("Enter a movie title to search for:");
-        String movieToSearch = input.next();
-        
-        // R3: Using Extracted Method for searching movies
-        boolean isMovieFound = searchElement(movieTitles, movieToSearch);
-
-        if (isMovieFound)
-            System.out.println("The movie title is found");
-        else
-            System.out.println("The movie title is not found");
-
-        // This code is to search for a specific member
-        System.out.println("Enter a member name to search for:");
+        System.out.println("\nEnter a member name to search for:");
         String memberToSearch = input.next();
-        
-        // R3: Using Extracted Method for searching members
-        boolean isMemberFound = searchElement(memberNames, memberToSearch);
-
-        if (isMemberFound)
+        // R4: Use specific search method for Member objects
+        if (searchMember(memberNames, memberToSearch)) {
             System.out.println("The member is found");
-        else
+        } else {
             System.out.println("The member is not found");
+        }
     }
 
-    /**
-     * R3: Extracted Method for sorting elements
-     */
-    public static void sortElements(ArrayList<String> list) {
+    // --- R4: SPECIFIC SORT AND SEARCH METHODS ---
+
+    public static void sortMovies(ArrayList<Movie> list) {
         boolean isSorted = false;
-        String temp = null;
+        Movie temp;
         while (!isSorted) {
             isSorted = true;
             for (int i = 0; i < list.size() - 1; i++) {
-                if ((list.get(i)).compareToIgnoreCase(list.get(i + 1)) > 0) {
+                // Comparing titles retrieved from the Movie objects
+                if (list.get(i).getTitle().compareToIgnoreCase(list.get(i + 1).getTitle()) > 0) {
                     temp = list.get(i);
                     list.set(i, list.get(i + 1));
                     list.set(i + 1, temp);
@@ -102,15 +117,52 @@ public class MovieStoreSystemRefactoredP2 {
         }
     }
 
-    /**
-     * R3: Extracted Method for searching for a specific element
-     */
-    public static boolean searchElement(ArrayList<String> list, String elementToSearch) {
-        boolean found = false;
-        for (int index = 0; index < list.size(); index++) {
-            if (list.get(index).equals(elementToSearch))
-                found = true;
+    public static void sortMembers(ArrayList<Member> list) {
+        boolean isSorted = false;
+        Member temp;
+        while (!isSorted) {
+            isSorted = true;
+            for (int i = 0; i < list.size() - 1; i++) {
+                // Comparing names retrieved from the Member objects
+                if (list.get(i).getName().compareToIgnoreCase(list.get(i + 1).getName()) > 0) {
+                    temp = list.get(i);
+                    list.set(i, list.get(i + 1));
+                    list.set(i + 1, temp);
+                    isSorted = false;
+                }
+            }
         }
-        return found;
+    }
+
+    public static boolean searchMovie(ArrayList<Movie> list, String target) {
+        for (Movie m : list) {
+            if (m.getTitle().equals(target)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean searchMember(ArrayList<Member> list, String target) {
+        for (Member m : list) {
+            if (m.getName().equals(target)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // --- R4: MODIFIED PRINT METHODS ---
+
+    public static void printMovies(ArrayList<Movie> list) {
+        for (Movie m : list) {
+            System.out.println(m.getTitle());
+        }
+    }
+
+    public static void printMembers(ArrayList<Member> list) {
+        for (Member m : list) {
+            System.out.println(m.getName());
+        }
     }
 }
