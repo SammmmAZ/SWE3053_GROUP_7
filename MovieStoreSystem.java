@@ -43,7 +43,7 @@ class Member extends SortableInstances{
     }
 }
 
-public class MovieStoreSystemRefactoredP3 {
+public class MovieStoreSystem {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
