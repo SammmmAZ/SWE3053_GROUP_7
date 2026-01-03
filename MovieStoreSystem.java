@@ -2,8 +2,13 @@ package MovieStoreSystem;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// R5: Define interface/ abstract class by which shared behaviour is supported across Movie & Member Class:
+abstract class SortableInstances {
+    //  serve as common abstraction for parametrization
+    abstract public String getKey();
+}
 // R4: Class for movie titles with title stored as an instance variable
-class Movie {
+class Movie extends SortableInstances{
     private String title;
 
     public Movie(String title) {
@@ -13,10 +18,15 @@ class Movie {
     public String getTitle() {
         return title;
     }
+
+    @Override
+    public String getKey() {
+        return title;
+    }
 }
 
 // R4: Class for members with name stored as an instance variable
-class Member {
+class Member extends SortableInstances{
     private String name;
 
     public Member(String name) {
@@ -24,6 +34,11 @@ class Member {
     }
 
     public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getKey() {
         return name;
     }
 }
