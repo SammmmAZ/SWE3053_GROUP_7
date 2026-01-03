@@ -149,6 +149,26 @@ public class MovieStoreSystemRefactoredP3 {
         }
     }
 
+    // create Parametrized sort methods for both Members and Movie instances
+    public static <T extends SortableInstances> void sortItems(ArrayList<T> list){
+        boolean isSorted = false;
+        T temp;
+
+        // follow similar sort logic
+        while (!isSorted){
+            isSorted = true;
+            for (int i = 0; i < list.size() - 1; i++) {
+                // Comparing names retrieved from the child class of SortableInstance
+                if (list.get(i).getKey().compareToIgnoreCase(list.get(i + 1).getKey()) > 0) {
+                    temp = list.get(i);
+                    list.set(i, list.get(i + 1));
+                    list.set(i + 1, temp);
+                    isSorted = false;
+                }
+            }
+        }
+    }
+
     public static boolean searchMovie(ArrayList<Movie> list, String target) {
         for (Movie m : list) {
             if (m.getTitle().equals(target)) {
