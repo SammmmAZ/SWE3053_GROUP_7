@@ -128,43 +128,7 @@ public class MovieStoreSystemRefactoredP3 {
         }
     }
 
-    // --- R4: SPECIFIC SORT AND SEARCH METHODS ---
-
-    public static void sortMovies(ArrayList<Movie> list) {
-        boolean isSorted = false;
-        Movie temp;
-        while (!isSorted) {
-            isSorted = true;
-            for (int i = 0; i < list.size() - 1; i++) {
-                // Comparing titles retrieved from the Movie objects
-                if (list.get(i).getTitle().compareToIgnoreCase(list.get(i + 1).getTitle()) > 0) {
-                    temp = list.get(i);
-                    list.set(i, list.get(i + 1));
-                    list.set(i + 1, temp);
-                    isSorted = false;
-                }
-            }
-        }
-    }
-
-    public static void sortMembers(ArrayList<Member> list) {
-        boolean isSorted = false;
-        Member temp;
-        while (!isSorted) {
-            isSorted = true;
-            for (int i = 0; i < list.size() - 1; i++) {
-                // Comparing names retrieved from the Member objects
-                if (list.get(i).getName().compareToIgnoreCase(list.get(i + 1).getName()) > 0) {
-                    temp = list.get(i);
-                    list.set(i, list.get(i + 1));
-                    list.set(i + 1, temp);
-                    isSorted = false;
-                }
-            }
-        }
-    }
-
-    // Refactor 5
+    // --- R5:
     // create Parametrized sort methods for both Members and Movie instances
     public static <T extends SortableInstances> void sortItems(ArrayList<T> list){
         boolean isSorted = false;
@@ -185,25 +149,7 @@ public class MovieStoreSystemRefactoredP3 {
         }
     }
 
-    public static boolean searchMovie(ArrayList<Movie> list, String target) {
-        for (Movie m : list) {
-            if (m.getTitle().equals(target)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean searchMember(ArrayList<Member> list, String target) {
-        for (Member m : list) {
-            if (m.getName().equals(target)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // Refactor 5
+    // --- R5:
     // created Parametrized search methods for both Members and Movie instances
     public static <T extends SortableInstances> void searchItems(ArrayList<T> list, String target){
         for (T item : list){
@@ -212,20 +158,6 @@ public class MovieStoreSystemRefactoredP3 {
             }
         }
         return false;
-    }
-
-    // --- R4: MODIFIED PRINT METHODS ---
-
-    public static void printMovies(ArrayList<Movie> list) {
-        for (Movie m : list) {
-            System.out.println(m.getTitle());
-        }
-    }
-
-    public static void printMembers(ArrayList<Member> list) {
-        for (Member m : list) {
-            System.out.println(m.getName());
-        }
     }
 
     // --- R5: Created Parametrized Print method
