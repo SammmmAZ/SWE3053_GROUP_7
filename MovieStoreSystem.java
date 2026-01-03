@@ -190,7 +190,7 @@ public class MovieStoreSystemRefactoredP3 {
 
     // Refactor 5
     // created Parametrized search methods for both Members and Movie instances
-    public static <T extends SortableInstance> void searchItems(ArrayList<T> list, String target){
+    public static <T extends SortableInstances> void searchItems(ArrayList<T> list, String target){
         for (T item : list){
             if (item.getKey().equals(target)){
                 return true;
@@ -210,6 +210,13 @@ public class MovieStoreSystemRefactoredP3 {
     public static void printMembers(ArrayList<Member> list) {
         for (Member m : list) {
             System.out.println(m.getName());
+        }
+    }
+
+    // --- R5: Created Parametrized Print method
+    public static <T extends SortableInstances> void printItems(ArrayList<T> list) {
+        for (T item : list){
+            System.out.prinln(item.getKey());
         }
     }
 }
