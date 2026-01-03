@@ -149,6 +149,7 @@ public class MovieStoreSystemRefactoredP3 {
         }
     }
 
+    // Refactor 5
     // create Parametrized sort methods for both Members and Movie instances
     public static <T extends SortableInstances> void sortItems(ArrayList<T> list){
         boolean isSorted = false;
@@ -181,6 +182,17 @@ public class MovieStoreSystemRefactoredP3 {
     public static boolean searchMember(ArrayList<Member> list, String target) {
         for (Member m : list) {
             if (m.getName().equals(target)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Refactor 5
+    // created Parametrized search methods for both Members and Movie instances
+    public static <T extends SortableInstance> void searchItems(ArrayList<T> list, String target){
+        for (T item : list){
+            if (item.getKey().equals(target)){
                 return true;
             }
         }
